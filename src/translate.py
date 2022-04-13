@@ -26,8 +26,6 @@ def translate_one_line(line:str, model, tokenizer):
         return ''
     else:
         input_ids = tokenizer.encode(line, return_tensors="pt")
-        print(input_ids)
         outputs = model.generate(input_ids)
-        print(outputs)
         decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
         return decoded
