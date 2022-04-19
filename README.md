@@ -2,6 +2,11 @@
 Richard Kuzma, APR 2022<br>
 Built with Streamlit front-end and HuggingFace NLP models
 
+#### How to run:
+1) Clone git, build environment with requirements.txt
+2) `cd` into repo
+3) In terminal, run the command: `streamlit run app.py`
+
 <br><br>
 ### Demonstration purpose:
 1) Showcase core NLP use cases for customers:
