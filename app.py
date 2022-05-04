@@ -126,12 +126,26 @@ if run:
         st.subheader('Times:')
         st.write(f'Time to load translation model: {round(translate_model_load_time, 2)} seconds')
         st.write(f'Time to translate: {round(translate_time, 2)} seconds\n')
-        st.write(f'Time to load topic classifier model: {round(classify_model_load_time,2)} seconds')
-        st.write(f'Time to classify topics: {round(classify_time, 2)} seconds\n')
-        st.write(f'Time to extract entities: {round(ner_time, 2)} seconds\n')
+
+        if input_classify == 'Yes':
+            st.write(f'Time to load topic classifier model: {round(classify_model_load_time,2)} seconds')
+            st.write(f'Time to classify topics: {round(classify_time, 2)} seconds\n')
+
+        if input_ner == 'Yes':
+            st.write(f'Time to extract entities: {round(ner_time, 2)} seconds\n')
         
-        st.write(f'Time to load models: {round(translate_model_load_time + classify_model_load_time,2)} seconds')
-        st.write(f'Time to make predictions: {round(translate_time + classify_time + ner_time, 2)} seconds')
+        total_load_time = translate_model_load_time
+        total_predict_time = translate_time
+        
+        if input_classify == 'Yes':
+            total_load_time += classify_model_load_time
+            total_predict_time += classify_time
+
+        if input_ner == 'Yes':
+            total_predict_time += ner_time
+
+        st.write(f'Time to load models: {round(total_load_time, 2)} seconds')
+        st.write(f'Time to make predictions: {round(total_predict_time, 2)} seconds')
         
 
 
