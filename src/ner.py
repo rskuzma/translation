@@ -1,8 +1,9 @@
 import spacy
 import re
 
-spacy.cli.download("en_core_web_sm")
-spacy_ner = spacy.load('en_core_web_sm')
+# spacy.cli.download("en_core_web_sm")
+# spacy_ner = spacy.load('en_core_web_sm')
+spacy_ner = spacy.load('./my_spacy/en_core_web_sm/en_core_web_sm-3.2.0')
 
 def extract_entitites_to_doc(input_text:str, ner_model=spacy_ner):
     spacy_doc = ner_model(input_text)

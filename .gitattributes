@@ -1,0 +1,4 @@
+models/translation/arabic/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
+models/translation/russian/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
+models/translation/french/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
+my_spacy/en_core_web_sm/en_core_web_sm-3.2.0/tokenizer filter=lfs diff=lfs merge=lfs -text

@@ -23,6 +23,7 @@ st.title('Skope Machine Translation Demo')
 ######################################################
 
 with st.sidebar:
+    from_local = st.radio('Load from local?', ['Yes'])
     time_it = st.radio('Time it?', ['No', 'Yes'])
     input_language = st.radio('Select language', ['arabic', 'russian', 'french'], help='What language is the input?')
     input_classify = st.radio('Topic Classification?', ['No', 'Yes'], help='Do you want to know the text topic?')
@@ -31,7 +32,7 @@ with st.sidebar:
 ######################################################
 
 # @st.cache
-def load_hf_models(language:str):
+def load_hf_models(language:str, load_from_local:'Yes'):
     """Load NLP machine translation models from HuggingFace.
 
     This application uses HuggingFace, a high-level API for open-source NLP models.
@@ -43,13 +44,21 @@ def load_hf_models(language:str):
     Returns:
         tokenizer: HuggingFace tokenizer that will turn text into machine-readable tokens
         model: HuggingFace model doing the translations
-    """    
+    """
+    if load_from_local == 'Yes':
+        local = True
+        path = f'./models/translation/{language}/'
+    else:
+        local = False
+        path = ''
+
     if language == 'arabic':
-        tokenizer, model = translate.arabic()
+        tokenizer, model = translate.arabic(local, path)
     elif language == 'russian':
-        tokenizer, model = translate.russian()
+        tokenizer, model = translate.russian(local, path)
     elif language == 'french':
-        tokenizer, model = translate.french()
+        tokenizer, model = translate.french(local, path)
+
         
     return tokenizer, model
     
@@ -80,19 +89,19 @@ if run:
     st.subheader('Step 1: Translate...')
     st.write('Loading translation model')
     translate_model_load_start = time.time()
-    tokenizer, model = load_hf_models(input_language)
+    tokenizer, model = load_hf_models(input_language, from_local)
     translate_model_load_time = time.time() - translate_model_load_start 
     
     st.write('Input text: ' + input_text)
+    st.write('\n\n\n')
     
-    st.write('Translating text')
+    st.write('Translating text.....')
     translate_time_start = time.time()
     english_text = translate.translate_one_line(input_text, model, tokenizer)
     translate_time = time.time() - translate_time_start
-
-
+    
+    st.text('\n\n\n')
     st.write('English translation: ' + english_text)
-    st.text('\n\n\n\n\n')
 
 
     ### Topic Classify
@@ -120,7 +129,7 @@ if run:
         entity_dict = ner.entities_to_dict(doc)
         ner_time = time.time() - ner_time_start
         st.write(entity_dict)
-        st.text('\n\n')
+        st.text('\n\n\n')
     
     if time_it == 'Yes':
         st.subheader('Times:')
