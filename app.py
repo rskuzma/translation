@@ -78,7 +78,7 @@ run = st.button(label="Translate")
 topics = st.multiselect(label='Pick potential topics', 
                             options=['sports', 'politics', 'technology', 'economics', 
                                      'healthcare', 'news', 'military', 'travel'], 
-                            default=None)
+                            default=['sports', 'politics', 'technology', 'military', 'travel'])
 
 ######################################################
        
@@ -109,7 +109,7 @@ if run:
         st.subheader('Step 2: Classify Topic(s)...')
         st.write('\n\n')
         classify_model_load_start = time.time()
-        zero_shot_classifier = classify.load_zero_shot_classifier()
+        zero_shot_classifier = classify.load_zero_shot_classifier(local=True)
         classify_model_load_time = time.time() - classify_model_load_start
         
 

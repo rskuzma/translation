@@ -1,5 +1,7 @@
+# note -- need to have spacy_model
+
 import spacy
-import re
+# import re
 
 # spacy.cli.download("en_core_web_sm")
 # spacy_ner = spacy.load('en_core_web_sm')
